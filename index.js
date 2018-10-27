@@ -1,8 +1,5 @@
 //const
 const Discord = require("discord.js");
-const request = require("request");
-const { get } = require("snekfetch"); 
-const fs = require("fs");
 const config = require("./config.json");
 const bot = new Discord.Client();
 
@@ -54,9 +51,9 @@ bot.on('message', message => {
 	//help
 	if(message.content.startsWith(prefix + "help")){
 			let embed = new Discord.RichEmbed()
-				.setAuthor(bot.user.username, "https://cdn.discordapp.com/app-icons/450353599365644288/ad89ef6792d554b2117cf270e096978c.png?size=256")
+				.setAuthor(bot.user.username, "https://cdn.discordapp.com/app-icons/450353599365644288/4ac094e935782b098d7919e1332f954c.png?size=256")
 				.setColor("#e73d3d")
-				.setThumbnail("https://cdn.discordapp.com/app-icons/450353599365644288/ad89ef6792d554b2117cf270e096978c.png?size=256")
+				.setThumbnail("https://cdn.discordapp.com/app-icons/450353599365644288/4ac094e935782b098d7919e1332f954c.png?size=256")
 				.setTitle("__Liste des commandes :__")
 				.setDescription(`Pour avoir la liste des commandes **${prefix}help**, le préfixe pour toutes les commandes est **${prefix}**`)
 				.addField(":bust_in_silhouette: General", "help, serveurinfo, ping, userinfo, codes, avatar, botinfo")
@@ -127,6 +124,7 @@ bot.on('message', message => {
 	else if(message.content.startsWith(prefix + "roll")){ 
 		var result = Math.floor((Math.random() * 100))
 		let embed = new Discord.RichEmbed()
+			.setAuthor(bot.user.username, "https://cdn.discordapp.com/app-icons/450353599365644288/4ac094e935782b098d7919e1332f954c.png?size=256")
 			.setColor("#FDE3D0")
 			.setDescription("Roll demandé par : **" + message.author.username + "**\nRésultat du roll : **" + result + "**")
 			.setFooter("Le roll donne un nombre aléatoire de 0 à 100.")
@@ -137,6 +135,7 @@ bot.on('message', message => {
 	//botinfo
 	else if(message.content.startsWith(prefix + "botinfo")){ 
 		let embed = new Discord.RichEmbed()
+			.setAuthor(bot.user.username, "https://cdn.discordapp.com/app-icons/450353599365644288/4ac094e935782b098d7919e1332f954c.png?size=256")
 			.setColor("#FDE3D0")
 			.setDescription("Pour m'inviter : https://discordapp.com/oauth2/authorize?client_id=450353599365644288&scope=bot&permissions=8")
 		message.channel.send(embed);
@@ -146,8 +145,9 @@ bot.on('message', message => {
 	//codes
 	else if(message.content.startsWith(prefix + "codes")){
 		let embed = new Discord.RichEmbed()
+			.setAuthor(bot.user.username, "https://cdn.discordapp.com/app-icons/450353599365644288/4ac094e935782b098d7919e1332f954c.png?size=256")
 			.setColor("#FDE3D0")
-			.setAuthor("Discord Formatting Codes")
+			.setDescription("Discord Formatting Codes")
 			.addField("```*italics*```","*italics*")
 			.addField("```**bold**```","**bold**")
 			.addField("```~~strikeout~~```","~~strikeout~~")
@@ -168,12 +168,14 @@ bot.on('message', message => {
 		if(message.mentions.members.size == 1) {
 			let member = message.mentions.members.first()
 				let embed = new Discord.RichEmbed()
+				.setAuthor(bot.user.username, "https://cdn.discordapp.com/app-icons/450353599365644288/4ac094e935782b098d7919e1332f954c.png?size=256")
 				.addField("Image de profil", member.user.username)
 				.setImage(member.user.avatarURL)
 				.setColor("#FDE3D0")
 			message.channel.send(embed);
 		} else {
 			let embed = new Discord.RichEmbed()
+				.setAuthor(bot.user.username, "https://cdn.discordapp.com/app-icons/450353599365644288/4ac094e935782b098d7919e1332f954c.png?size=256")
 				.addField("Image de profil", message.author.username)
 				.setImage(message.author.avatarURL)
 				.setColor("#FDE3D0")
