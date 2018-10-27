@@ -61,7 +61,7 @@ bot.on('message', message => {
 				.setDescription(`Pour avoir la liste des commandes **${prefix}help**, le préfixe pour toutes les commandes est **${prefix}**`)
 				.addField(":bust_in_silhouette: General", "help, serveurinfo, ping, userinfo, codes, avatar, botinfo")
 				.addField(":tada: Fun", "roll, hug, goodnight, kiss, mp")
-				.addField(":link: Mon code est open-source", "https://gitlab.com/Lindwen/nekobot/blob/master/index.js")
+				.addField(":link: Mon code est open-source", "https://github.com/Lindwen/NekoBot\nhttps://gitlab.com/Lindwen/nekobot")
 				.setFooter("J'ai été créé par Lindwen")
 			message.channel.send(embed);
 	}
