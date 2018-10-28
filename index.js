@@ -56,10 +56,11 @@ bot.on('message', message => {
 				.setThumbnail("https://cdn.discordapp.com/app-icons/450353599365644288/4ac094e935782b098d7919e1332f954c.png?size=256")
 				.setTitle("__Liste des commandes :__")
 				.setDescription(`Pour avoir la liste des commandes **${prefix}help**, le préfixe pour toutes les commandes est **${prefix}**`)
-				.addField(":bust_in_silhouette: General", "help, serveurinfo, ping, userinfo, codes, avatar, botinfo")
+				.addField(":bust_in_silhouette: General", "help, serveurinfo, ping, userinfo, codes, avatar")
 				.addField(":tada: Fun", "roll, hug, goodnight, kiss, mp")
+				.addField(":white_check_mark: Pour m'inviter :","https://discordapp.com/oauth2/authorize?client_id=450353599365644288&scope=bot&permissions=8")
 				.addField(":link: Mon code est open-source", "https://github.com/Lindwen/NekoBot\nhttps://gitlab.com/Lindwen/nekobot")
-				.setFooter("J'ai été créé par Lindwen")
+				.setFooter("J'ai été créé par Lindwen Aka Alexandre#2522")
 			message.channel.send(embed);
 	}
 
@@ -131,15 +132,6 @@ bot.on('message', message => {
 		message.channel.send(embed);
 	}
 
-
-	//botinfo
-	else if(message.content.startsWith(prefix + "botinfo")){ 
-		let embed = new Discord.RichEmbed()
-			.setAuthor(bot.user.username, "https://cdn.discordapp.com/app-icons/450353599365644288/4ac094e935782b098d7919e1332f954c.png?size=256")
-			.setColor("#FDE3D0")
-			.setDescription("Pour m'inviter : https://discordapp.com/oauth2/authorize?client_id=450353599365644288&scope=bot&permissions=8")
-		message.channel.send(embed);
-	}
 
 
 	//codes
