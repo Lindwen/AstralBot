@@ -52,7 +52,7 @@ bot.on('message', message => {
 	if(message.content.startsWith(prefix + "help")){
 			let embed = new Discord.RichEmbed()
 				.setAuthor(bot.user.username, "https://cdn.discordapp.com/app-icons/450353599365644288/4ac094e935782b098d7919e1332f954c.png?size=256")
-				.setColor("#e73d3d")
+				.setColor(config.color)
 				.setThumbnail("https://cdn.discordapp.com/app-icons/450353599365644288/4ac094e935782b098d7919e1332f954c.png?size=256")
 				.setTitle("__Liste des commandes :__")
 				.setDescription(`Pour avoir la liste des commandes **${prefix}help**, le préfixe pour toutes les commandes est **${prefix}**`)
@@ -68,7 +68,7 @@ bot.on('message', message => {
 	//info serveur
 	else if(message.content.startsWith(prefix + "serveurinfo")){
 		let embed = new Discord.RichEmbed()
-			.setColor("#FDE3D0")
+			.setColor(config.color)
 			.setAuthor(bot.user.username, bot.user.avatarURL)
 			.setDescription("Information du serveur")
 			.addField("Propriétaire du serveur", message.guild.owner.user.tag)
@@ -101,7 +101,7 @@ bot.on('message', message => {
 			let member = message.mentions.members.first()
 				let embed = new Discord.RichEmbed()
 				.setAuthor(member.user.username)
-				.setColor("#FDE3D0")
+				.setColor(config.color)
 				.addField("Pseudonyme :", `${member.user.username}#${member.user.discriminator}` ,true)
 				.addField("ID :", member.user.id ,true)
 				.addField("Créé le :", member.user.createdAt ,true)
@@ -111,7 +111,7 @@ bot.on('message', message => {
 		else {
 			let embed = new Discord.RichEmbed()
 				.setAuthor(message.author.username)
-				.setColor("#FDE3D0")
+				.setColor(config.color)
 				.addField("Pseudonyme :", `${message.author.username}#${message.author.discriminator}` ,true)
 				.addField("ID :", message.author.id ,true)
 				.addField("Créé le :", message.author.createdAt ,true)
@@ -126,7 +126,7 @@ bot.on('message', message => {
 		var result = Math.floor((Math.random() * 100))
 		let embed = new Discord.RichEmbed()
 			.setAuthor(bot.user.username, "https://cdn.discordapp.com/app-icons/450353599365644288/4ac094e935782b098d7919e1332f954c.png?size=256")
-			.setColor("#FDE3D0")
+			.setColor(config.color)
 			.setDescription("Roll demandé par : **" + message.author.username + "**\nRésultat du roll : **" + result + "**")
 			.setFooter("Le roll donne un nombre aléatoire de 0 à 100.")
 		message.channel.send(embed);
@@ -138,7 +138,7 @@ bot.on('message', message => {
 	else if(message.content.startsWith(prefix + "codes")){
 		let embed = new Discord.RichEmbed()
 			.setAuthor(bot.user.username, "https://cdn.discordapp.com/app-icons/450353599365644288/4ac094e935782b098d7919e1332f954c.png?size=256")
-			.setColor("#FDE3D0")
+			.setColor(config.color)
 			.setDescription("Discord Formatting Codes")
 			.addField("```*italics*```","*italics*")
 			.addField("```**bold**```","**bold**")
@@ -163,14 +163,14 @@ bot.on('message', message => {
 				.setAuthor(bot.user.username, "https://cdn.discordapp.com/app-icons/450353599365644288/4ac094e935782b098d7919e1332f954c.png?size=256")
 				.addField("Image de profil", member.user.username)
 				.setImage(member.user.avatarURL)
-				.setColor("#FDE3D0")
+				.setColor(config.color)
 			message.channel.send(embed);
 		} else {
 			let embed = new Discord.RichEmbed()
 				.setAuthor(bot.user.username, "https://cdn.discordapp.com/app-icons/450353599365644288/4ac094e935782b098d7919e1332f954c.png?size=256")
 				.addField("Image de profil", message.author.username)
 				.setImage(message.author.avatarURL)
-				.setColor("#FDE3D0")
+				.setColor(config.color)
 			message.channel.send(embed);
 		}
 	}
@@ -236,7 +236,7 @@ bot.on('message', message => {
 		let uptime = `${hours} heures, ${minutes} minutes et ${seconds} secondes`;
 		let embed = new Discord.RichEmbed()
 			.setAuthor(bot.user.username, "https://cdn.discordapp.com/app-icons/450353599365644288/4ac094e935782b098d7919e1332f954c.png?size=256")
-			.setColor("#FDE3D0")
+			.setColor(config.color)
 			.setDescription(`Je suis connecté depuis :\n${uptime}`)
 		message.channel.send(embed);
 	}
