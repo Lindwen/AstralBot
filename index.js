@@ -23,7 +23,7 @@ bot.on("ready", () => {
     console.log(`Utilisateurs : ${bot.users.size}`)
     console.log(`Channels : ${bot.channels.size}`)
 	console.log(`---------------------`)
-	bot.user.setActivity(`${prefix}help | in ${bot.guilds.array().length} servers`);
+	bot.user.setGame(`${prefix}help | in ${bot.guilds.array().length} servers`, 'https://www.twitch.tv/lindwen');
 });
 
 
@@ -31,7 +31,7 @@ bot.on("ready", () => {
 //Quand le bot rejoint un serveur
 bot.on("guildCreate", guild => {
   console.log(`J'ai rejoins un nouveau serveur : ${guild.name} (id: ${guild.id}). Il y a ${guild.memberCount} membres !`);
-  bot.user.setActivity(`${prefix}help | in ${bot.guilds.array().length} servers`);
+  bot.user.setGame(`${prefix}help | in ${bot.guilds.array().length} servers`, 'https://www.twitch.tv/lindwen');
 });
 
 
@@ -39,7 +39,7 @@ bot.on("guildCreate", guild => {
 //Quand le bot part d'un serveur
 bot.on("guildDelete", guild => {
   console.log(`J'ai été exclu d'un serveur : ${guild.name} (id: ${guild.id})`);
-  bot.user.setActivity(`${prefix}help | in ${bot.guilds.array().length} servers`);
+  bot.user.setGame(`${prefix}help | in ${bot.guilds.array().length} servers`, 'https://www.twitch.tv/lindwen');
 });
 
 
@@ -56,7 +56,7 @@ bot.on('message', message => {
 				.setThumbnail("https://cdn.discordapp.com/app-icons/450353599365644288/4ac094e935782b098d7919e1332f954c.png?size=256")
 				.setTitle("__Liste des commandes :__")
 				.setDescription(`Pour avoir la liste des commandes **${prefix}help**, le préfixe pour toutes les commandes est **${prefix}**`)
-				.addField(":bust_in_silhouette: General", "help, serveurinfo, ping, userinfo, codes, avatar")
+				.addField(":bust_in_silhouette: General", "help, serveurinfo, ping, userinfo, codes, avatar, uptime")
 				.addField(":tada: Fun", "roll, hug, goodnight, kiss, mp")
 				.addField(":white_check_mark: Pour m'inviter :","https://discordapp.com/oauth2/authorize?client_id=450353599365644288&scope=bot&permissions=8")
 				.addField(":link: Mon code est open-source", "https://github.com/Lindwen/NekoBot\nhttps://gitlab.com/Lindwen/nekobot")
@@ -187,7 +187,7 @@ bot.on('message', message => {
 	}
 
 
-	//Salut
+	//salut
 	else if (message.content.includes("salut neko")) {
 		message.channel.send(`Salut ${message.author} !`)
 	}
@@ -224,6 +224,71 @@ bot.on('message', message => {
 			});
 		}
 	}
+
+
+	//uptime
+	else if(message.content.startsWith(prefix + "uptime")) {
+		let totalSeconds = (bot.uptime / 1000);
+		let hours = Math.floor(totalSeconds / 3600);
+		totalSeconds %= 3600;
+		let minutes = Math.floor(totalSeconds / 60);
+		let seconds = totalSeconds % 60;
+		let uptime = `${hours} heures, ${minutes} minutes et ${seconds} secondes`;
+		let embed = new Discord.RichEmbed()
+			.setAuthor(bot.user.username, "https://cdn.discordapp.com/app-icons/450353599365644288/4ac094e935782b098d7919e1332f954c.png?size=256")
+			.setColor("#FDE3D0")
+			.setDescription(`Je suis connecté depuis :\n${uptime}`)
+		message.channel.send(embed);
+	}
+
+
+	/*
+	//kick
+	else if (message.content.startsWith(prefix + "kick")) {
+		if(message.member.hasPermission("KICK_MEMBERS"));
+		const user = message.mentions.users.first();
+			if (user) {
+				const member = message.guild.member(user);
+				if (member) {
+					member.kick('Raison facultative à afficher dans les journaux des logs.').then(() => {
+						message.reply(`${user.tag} a été kick.`);
+					}).catch(err => {
+					message.reply('Je ne peux pas kick ce membre.');
+					console.error(err);
+				});
+				} else {
+						message.reply('Cet utilisateur n\'est pas sur le serveur !');
+				}
+			} else {
+				message.reply('Veuillez mentionner un utilisateur a kick.');
+	}
+
+
+	//ban
+	if (message.content.startsWith(prefix + "ban")) {
+		if(message.member.hasPermission("BAN_MEMBERS"));
+		const user = message.mentions.users.first();
+		if (user) {
+		  const member = message.guild.member(user);
+		  if (member) {
+			member.ban({
+			  reason: 'Le marteau de bannissement a frappé !',
+			}).then(() => {
+			  message.reply(`${user.tag} a été banni.`);
+			}).catch(err => {
+			  message.reply('Je ne peux pas bannir ce membre.');
+			  console.error(err);
+			});
+		  } else {
+			message.reply('Cet utilisateur n\'est pas sur le serveur !');
+		  }
+		} else {
+		  message.reply('Veuillez mentionner un utilisateur a ban.');
+		}
+	}
+	*/
+
+
 });
 	
 
