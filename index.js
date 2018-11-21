@@ -1,17 +1,64 @@
-//const
+//ConstRandomHug
+const randomhug = [
+	'https://media.giphy.com/media/od5H3PmEG5EVq/giphy.gif',
+	'https://media.giphy.com/media/wnsgren9NtITS/giphy.gif',
+	'https://media.giphy.com/media/rSNAVVANV5XhK/giphy.gif',
+	'https://media.giphy.com/media/aVmEsdMmCTqSs/giphy.gif',
+	'https://media.giphy.com/media/5eyhBKLvYhafu/giphy.gif',
+	'https://media.giphy.com/media/l2QDM9Jnim1YVILXa/giphy.gif',
+]
+
+
+//ConstRandomIlluminaty
+const randomilluminaty = [
+	'https://media.giphy.com/media/3o7TKPATxjC1zfIwW4/giphy.gif',
+	'https://media.giphy.com/media/jzw9G5Yvi2PXW/giphy.gif',
+	'https://media.giphy.com/media/VtRW9YZLtIyzK/giphy.gif',
+	'https://media.giphy.com/media/ZTfTSegFNMnC0/giphy.gif',
+	'https://media.giphy.com/media/tQy71qcmPvE7S/giphy.gif',
+	'https://media.giphy.com/media/UUdxbtwjH5m00/giphy.gif',
+	'https://media.giphy.com/media/3oz8xPyx3qgq5jAmMo/giphy.gif',
+]
+
+
+//ConstRandomNight
+const randomnight = [
+	'https://media.giphy.com/media/CDVoZtvOq4Io0/giphy.gif',
+	'https://media.giphy.com/media/Jalikml2XiUgw/giphy.gif',
+	'https://media.giphy.com/media/3oriNOV42vZdh31e48/giphy.gif',
+	'https://media.giphy.com/media/u8PnFQdDTglXi/giphy.gif',
+	'https://media.giphy.com/media/3FpGoIqE8HLYk/giphy.gif',
+	'https://media.giphy.com/media/AxVvjUImqDBA2HpHhe/giphy.gif',
+	'https://media.giphy.com/media/3o6ZtgbkPEFgyunOo0/giphy.gif',
+]
+
+
+//ConstRandomKiss
+const randomkiss = [
+	'https://media.giphy.com/media/YDB4EF3U6i6IM/giphy.gif',
+	'https://media.giphy.com/media/hgcqkgBLCbwl2/giphy.gif',
+	'https://media.giphy.com/media/KH1CTZtw1iP3W/giphy.gif',
+	'https://media.giphy.com/media/CzCi6itPr3yBa/giphy.gif',
+	'https://media.giphy.com/media/G3va31oEEnIkM/giphy.gif',
+	'https://media.giphy.com/media/zkppEMFvRX5FC/giphy.gif',
+	'https://media.giphy.com/media/FqBTvSNjNzeZG/giphy.gif',
+	'https://media.giphy.com/media/Ka2NAhphLdqXC/giphy.gif',
+]
+
+
+//OthersConst
 const Discord = require("discord.js");
 const config = require("./config.json");
+const { get } = require("snekfetch"); 
 const bot = new Discord.Client();
 
 
-
-//var
+//AllVar
 var prefix = config.prefix;
 var randnum = 0;
 
 
-
-//Stats du bot
+//Stats du bot et informations de connexion
 bot.on("ready", () => {
 	var servers = bot.guilds.array().map(g => g.name).join(',');
 	console.log(`---------------------`);
@@ -27,7 +74,6 @@ bot.on("ready", () => {
 });
 
 
-
 //Quand le bot rejoint un serveur
 bot.on("guildCreate", guild => {
   console.log(`J'ai rejoins un nouveau serveur : ${guild.name} (id: ${guild.id}). Il y a ${guild.memberCount} membres !`);
@@ -35,13 +81,11 @@ bot.on("guildCreate", guild => {
 });
 
 
-
 //Quand le bot part d'un serveur
 bot.on("guildDelete", guild => {
   console.log(`J'ai été exclu d'un serveur : ${guild.name} (id: ${guild.id})`);
   bot.user.setGame(`${prefix}help | in ${bot.guilds.array().length} servers`, 'https://www.twitch.tv/lindwen');
 });
-
 
 
 //Commandes
@@ -57,7 +101,8 @@ bot.on('message', message => {
 				.setTitle("__Liste des commandes :__")
 				.setDescription(`Pour avoir la liste des commandes **${prefix}help**, le préfixe pour toutes les commandes est **${prefix}**`)
 				.addField(":bust_in_silhouette: General", "help, serveurinfo, ping, userinfo, codes, avatar, uptime")
-				.addField(":tada: Fun", "roll, hug, goodnight, kiss, mp")
+				.addField(":tada: Fun", "roll, hug, goodnight, kiss, cat, illuminaty")
+				.addField(":wrench: Site Web", "http://nekobot.tk/")
 				.addField(":white_check_mark: Pour m'inviter :","https://discordapp.com/oauth2/authorize?client_id=450353599365644288&scope=bot&permissions=8")
 				.addField(":link: Mon code est open-source", "https://github.com/Lindwen/NekoBot\nhttps://gitlab.com/Lindwen/nekobot")
 				.setFooter("J'ai été créé par Lindwen Aka Alexandre#2522")
@@ -181,9 +226,19 @@ bot.on('message', message => {
 		if(message.mentions.members.size == 1) {
 			let member = message.mentions.members.first()
 			message.channel.send(`${message.author} fait un calin a ${member} !`, {
-				file: "https://media.giphy.com/media/xJlOdEYy0r7ZS/giphy.gif"
+				file: randomhug[Math.floor(Math.random() * randomhug.length)]
 			});
+		} else {
+			message.channel.send("Veuillez mentionner un utilisateur.")
 		}
+	}
+
+
+	//illuminaty
+	else if(message.content.startsWith(prefix + "illuminaty")) {
+		message.channel.send(`${message.author} Nous sommes les Illuminaty !`, {
+			file: randomilluminaty[Math.floor(Math.random() * randomilluminaty.length)]
+		});
 	}
 
 
@@ -198,8 +253,10 @@ bot.on('message', message => {
 		if(message.mentions.members.size == 1) {
 			let member = message.mentions.members.first()
 			message.channel.send(`${message.author} souhaite une bonne nuit a ${member} !`, {
-				file: "https://media.giphy.com/media/1wn4WeXaCt3hHFyd67/giphy.gif"
+				file: randomnight[Math.floor(Math.random() * randomnight.length)]
 			});
+		} else {
+			message.channel.send("Veuillez mentionner un utilisateur.")
 		}
 	}
 
@@ -208,20 +265,11 @@ bot.on('message', message => {
 	else if(message.content.startsWith(prefix + "kiss")) {
 		if(message.mentions.members.size == 1) {
 			let member = message.mentions.members.first()
-			message.channel.send(`${message.author} fait un bisous a ${member} !`, {
-				file: "https://media.giphy.com/media/KH1CTZtw1iP3W/giphy.gif"
+			message.channel.send(`${message.author} embrasse ${member} !`, {
+				file: randomkiss[Math.floor(Math.random() * randomkiss.length)]
 			});
-		}
-	}
-
-
-	//mp
-	else if(message.content.startsWith(prefix + "mp")) {
-		if(message.mentions.members.size == 1) {
-			let member = message.mentions.members.first()
-			message.channel.send(`${message.author} envoie un mp a ${member} !`, {
-				file: "http://image.noelshack.com/fichiers/2018/43/6/1540629017-c04.gif"
-			});
+		} else {
+			message.channel.send("Veuillez mentionner un utilisateur.")
 		}
 	}
 
@@ -239,6 +287,29 @@ bot.on('message', message => {
 			.setColor(config.color)
 			.setDescription(`Je suis connecté depuis :\n${uptime}`)
 		message.channel.send(embed);
+	}
+
+
+	//blacklist
+	let blacklisted = ['salope', 'pute', 'encule'];
+	let foundInText = false;
+	for (var i in blacklisted) {
+		if(message.content.toLowerCase().includes(blacklisted[i].toLowerCase())) foundInText = true;
+	}
+	if(foundInText) {
+		message.delete();
+		message.channel.send(`[NekoMod] ${message.author} -> **Bad word usage**.`)
+		console.log(`[NekoMod] message de : ${message.author} supprimé pour **Bad word usage**.`)
+	}
+
+
+	//radomcat
+	else if(message.content.startsWith(prefix + 'cat')) {
+			get('https://aws.random.cat/meow').then(res => {
+				const embed = new Discord.RichEmbed()
+				.setImage(res.body.file)
+				return message.channel.send({embed});
+		});
 	}
 
 
@@ -290,7 +361,6 @@ bot.on('message', message => {
 
 
 });
-	
 
 
 bot.login(config.token)
