@@ -70,42 +70,37 @@ bot.on("ready", () => {
     console.log(`Utilisateurs : ${bot.users.size}`)
     console.log(`Channels : ${bot.channels.size}`)
 	console.log(`---------------------`)
-	bot.user.setGame(`${prefix}help | in ${bot.guilds.array().length} servers`, 'https://www.twitch.tv/lindwen');
+	bot.user.setActivity(`${prefix}help | in ${bot.guilds.array().length} servers`);
 });
 
 
 //Quand le bot rejoint un serveur
 bot.on("guildCreate", guild => {
   console.log(`J'ai rejoins un nouveau serveur : ${guild.name} (id: ${guild.id}). Il y a ${guild.memberCount} membres !`);
-  bot.user.setGame(`${prefix}help | in ${bot.guilds.array().length} servers`, 'https://www.twitch.tv/lindwen');
+  bot.user.setActivity(`${prefix}help | in ${bot.guilds.array().length} servers`);
 });
 
 
 //Quand le bot part d'un serveur
 bot.on("guildDelete", guild => {
   console.log(`J'ai été exclu d'un serveur : ${guild.name} (id: ${guild.id})`);
-  bot.user.setGame(`${prefix}help | in ${bot.guilds.array().length} servers`, 'https://www.twitch.tv/lindwen');
+  bot.user.setActivity(`${prefix}help | in ${bot.guilds.array().length} servers`);
 });
 
 
 //Commandes
 bot.on('message', message => {
 
-
 	//help
 	if(message.content.startsWith(prefix + "help")){
 			let embed = new Discord.RichEmbed()
-				.setAuthor(bot.user.username, "https://cdn.discordapp.com/app-icons/450353599365644288/4ac094e935782b098d7919e1332f954c.png?size=256")
 				.setColor(config.color)
-				.setThumbnail("https://cdn.discordapp.com/app-icons/450353599365644288/4ac094e935782b098d7919e1332f954c.png?size=256")
 				.setTitle("__Liste des commandes :__")
-				.setDescription(`Pour avoir la liste des commandes **${prefix}help**, le préfixe pour toutes les commandes est **${prefix}**`)
+				.setDescription(`Le préfixe pour toutes les commandes est **${prefix}**`)
 				.addField(":bust_in_silhouette: General", "help, serveurinfo, ping, userinfo, codes, avatar, uptime")
 				.addField(":tada: Fun", "roll, hug, goodnight, kiss, cat, illuminaty")
-				.addField(":wrench: Site Web", "http://nekobot.tk/")
 				.addField(":white_check_mark: Pour m'inviter :","https://discordapp.com/oauth2/authorize?client_id=450353599365644288&scope=bot&permissions=8")
-				.addField(":link: Mon code est open-source", "https://github.com/Lindwen/NekoBot\nhttps://gitlab.com/Lindwen/nekobot")
-				.setFooter("J'ai été créé par Lindwen Aka Alexandre#2522")
+				.setFooter("Mon code est open-source https://github.com/Lindwen/NekoBot")
 			message.channel.send(embed);
 	}
 
@@ -114,7 +109,6 @@ bot.on('message', message => {
 	else if(message.content.startsWith(prefix + "serveurinfo")){
 		let embed = new Discord.RichEmbed()
 			.setColor(config.color)
-			.setAuthor(bot.user.username, bot.user.avatarURL)
 			.setDescription("Information du serveur")
 			.addField("Propriétaire du serveur", message.guild.owner.user.tag)
 			.addField("Nom du serveur", message.guild.name)
@@ -170,7 +164,6 @@ bot.on('message', message => {
 	else if(message.content.startsWith(prefix + "roll")){ 
 		var result = Math.floor((Math.random() * 100))
 		let embed = new Discord.RichEmbed()
-			.setAuthor(bot.user.username, "https://cdn.discordapp.com/app-icons/450353599365644288/4ac094e935782b098d7919e1332f954c.png?size=256")
 			.setColor(config.color)
 			.setDescription("Roll demandé par : **" + message.author.username + "**\nRésultat du roll : **" + result + "**")
 			.setFooter("Le roll donne un nombre aléatoire de 0 à 100.")
@@ -178,11 +171,24 @@ bot.on('message', message => {
 	}
 
 
+	//love
+	else if(message.content.startsWith(prefix + "love")){ 
+		var result = Math.floor((Math.random() * 100))
+		if(message.mentions.members.size == 1){
+			let member = message.mentions.members.first()
+			let embed = new Discord.RichEmbed()
+			.setColor(config.color)
+			.setDescription(`[Lovely Machine] ${message.author} & ${member} : ` + result + `% !`)
+			message.channel.send(embed);
+		} else {
+			message.channel.send("Veuillez mentionner un utilisateur.")
+		}
+	}
+
 
 	//codes
 	else if(message.content.startsWith(prefix + "codes")){
 		let embed = new Discord.RichEmbed()
-			.setAuthor(bot.user.username, "https://cdn.discordapp.com/app-icons/450353599365644288/4ac094e935782b098d7919e1332f954c.png?size=256")
 			.setColor(config.color)
 			.setDescription("Discord Formatting Codes")
 			.addField("```*italics*```","*italics*")
@@ -205,14 +211,12 @@ bot.on('message', message => {
 		if(message.mentions.members.size == 1) {
 			let member = message.mentions.members.first()
 				let embed = new Discord.RichEmbed()
-				.setAuthor(bot.user.username, "https://cdn.discordapp.com/app-icons/450353599365644288/4ac094e935782b098d7919e1332f954c.png?size=256")
 				.addField("Image de profil", member.user.username)
 				.setImage(member.user.avatarURL)
 				.setColor(config.color)
 			message.channel.send(embed);
 		} else {
 			let embed = new Discord.RichEmbed()
-				.setAuthor(bot.user.username, "https://cdn.discordapp.com/app-icons/450353599365644288/4ac094e935782b098d7919e1332f954c.png?size=256")
 				.addField("Image de profil", message.author.username)
 				.setImage(message.author.avatarURL)
 				.setColor(config.color)
@@ -283,25 +287,10 @@ bot.on('message', message => {
 		let seconds = totalSeconds % 60;
 		let uptime = `${hours} heures, ${minutes} minutes et ${seconds} secondes`;
 		let embed = new Discord.RichEmbed()
-			.setAuthor(bot.user.username, "https://cdn.discordapp.com/app-icons/450353599365644288/4ac094e935782b098d7919e1332f954c.png?size=256")
 			.setColor(config.color)
 			.setDescription(`Je suis connecté depuis :\n${uptime}`)
 		message.channel.send(embed);
 	}
-
-
-	//blacklist
-	let blacklisted = ['salope', 'pute', 'encule'];
-	let foundInText = false;
-	for (var i in blacklisted) {
-		if(message.content.toLowerCase().includes(blacklisted[i].toLowerCase())) foundInText = true;
-	}
-	if(foundInText) {
-		message.delete();
-		message.channel.send(`[NekoMod] ${message.author} -> **Bad word usage**.`)
-		console.log(`[NekoMod] message de : ${message.author} supprimé pour **Bad word usage**.`)
-	}
-
 
 	//radomcat
 	else if(message.content.startsWith(prefix + 'cat')) {
@@ -311,53 +300,6 @@ bot.on('message', message => {
 				return message.channel.send({embed});
 		});
 	}
-
-
-	/*
-	//kick
-	else if (message.content.startsWith(prefix + "kick")) {
-		if(message.member.hasPermission("KICK_MEMBERS"));
-		const user = message.mentions.users.first();
-			if (user) {
-				const member = message.guild.member(user);
-				if (member) {
-					member.kick('Raison facultative à afficher dans les journaux des logs.').then(() => {
-						message.reply(`${user.tag} a été kick.`);
-					}).catch(err => {
-					message.reply('Je ne peux pas kick ce membre.');
-					console.error(err);
-				});
-				} else {
-						message.reply('Cet utilisateur n\'est pas sur le serveur !');
-				}
-			} else {
-				message.reply('Veuillez mentionner un utilisateur a kick.');
-	}
-
-
-	//ban
-	if (message.content.startsWith(prefix + "ban")) {
-		if(message.member.hasPermission("BAN_MEMBERS"));
-		const user = message.mentions.users.first();
-		if (user) {
-		  const member = message.guild.member(user);
-		  if (member) {
-			member.ban({
-			  reason: 'Le marteau de bannissement a frappé !',
-			}).then(() => {
-			  message.reply(`${user.tag} a été banni.`);
-			}).catch(err => {
-			  message.reply('Je ne peux pas bannir ce membre.');
-			  console.error(err);
-			});
-		  } else {
-			message.reply('Cet utilisateur n\'est pas sur le serveur !');
-		  }
-		} else {
-		  message.reply('Veuillez mentionner un utilisateur a ban.');
-		}
-	}
-	*/
 
 
 });
