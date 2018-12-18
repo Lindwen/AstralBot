@@ -1,1 +1,1 @@
-# NekoBot
+# AstralBot
